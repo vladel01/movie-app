@@ -32,13 +32,22 @@ form.addEventListener('submit', function(event) {
     const searchValue = input.value
     let finalSearchValue = searchValue
 
-    if (searchValue.indexOf(' ')) {        
-        finalSearchValue = searchValue.split(' ').join('+').toLowerCase();
+    // Function that is used as protection to empty spaces
+    const createSearchWord = function(final, word) {
+        if (word != '') {
+            return `${final}+${word}` 
+        } else {
+            return `${final}`
+        }  
     }
 
-    //console.log(searchValue)
+    if (searchValue.indexOf(' ')) {                
+        words = searchValue.split(' ');
+        finalSearchValue = words.reduce(createSearchWord)
+    }
+
+    console.log(finalSearchValue)
     const ajaxCallUrl = apiUrl + apiKey + finalSearchValue
-    console.log(ajaxCallUrl)
 
     fetch(ajaxCallUrl).then(function(response) {
         if (response.status !== 200) {
