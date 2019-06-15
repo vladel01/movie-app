@@ -2,13 +2,16 @@ const form = document.getElementById('search-form');
 const input = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 
-const apiUrl = 'http://www.omdbapi.com/?'
-const apiKey = 'apikey=338f9a63&s='
+const apiUrl = 'http://www.omdbapi.com/?apikey=338f9a63'
+const apiSearchByTitle = '&s='
 
 
 // Function for creating html elements from the server response
 const resultBuilder = function (item) {
     const movieElement = document.createElement('li')
+    movieElement.className = 'movie-result'
+    movieElement.setAttribute('id', item.imdbID)
+    movieElement.setAttribute('onclick', 'expandDetails(this)')
 
     if (item.Poster !== 'N/A') {
         movieElement.style.backgroundImage = `url(${item.Poster})`
@@ -47,7 +50,7 @@ form.addEventListener('submit', function(event) {
     }
 
     console.log(finalSearchValue)
-    const ajaxCallUrl = apiUrl + apiKey + finalSearchValue
+    const ajaxCallUrl = apiUrl + apiSearchByTitle + finalSearchValue
 
     fetch(ajaxCallUrl).then(function(response) {
         if (response.status !== 200) {
@@ -71,6 +74,7 @@ form.addEventListener('submit', function(event) {
                     results.forEach(function (movie) {
                         resultBuilder(movie)
                     }) 
+                    console.log(results)
                 }                
                            
             })      
