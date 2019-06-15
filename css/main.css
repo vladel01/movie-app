@@ -135,6 +135,7 @@ body {
     position: relative;
     padding: 30px;
     width: 500px;
+    max-width: 100%;
 }
 
 .movie-details-modal button {
