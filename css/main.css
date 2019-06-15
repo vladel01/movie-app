@@ -2,6 +2,7 @@
 
 body {
     background: #932023;
+    font-family:  'Montserrat', sans-serif;
 }
 
 .page-content {    
@@ -113,7 +114,61 @@ body {
 
 /* Style for the search results - End */
 
+/* Style for the movie details modal popup */
+.movie-details-modal {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+    background: #6b2729;
+    -webkit-box-shadow: 2px 4px 10px rgba(0,0,0,0.6);
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.6);
+    display: none;        
+}
 
+.movie-details-modal.show {
+    display: block;
+}
+
+.movie-details-modal .modal-content {
+    position: relative;
+    padding: 30px;
+    width: 500px;
+}
+
+.movie-details-modal button {
+    border: none;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.movie-details-modal video {
+    margin: 10px auto 30px;
+    display: block;
+}
+
+.movie-details-modal ul {
+    margin: 20px 0;
+    list-style-type: none;
+    color: #fff;
+}
+
+.movie-details-modal li {
+    margin-bottom: 10px; 
+    font-style: italic;
+}
+
+.movie-details-modal li strong {
+    font-style: normal;
+    margin-right: 5px;
+}
 
 /* Responsive elements style */
 @media only screen and (max-width: 1055px) {
