@@ -32,54 +32,66 @@ function getMovieDataByID(movieID) {
 }
 
 
-function movieDetailsModal(data) {    
+function movieDetailsModal(data) {   
 
+    const modalContent = document.createElement('div')
+    modalContent.classList.add('modal-content')
+    document.querySelector('.movie-details-modal').append(modalContent)
+
+    // Video preview is added on the popup
+    const videoElement = document.createElement('video')
+    videoElement.setAttribute('autoplay', '')
+    videoElement.setAttribute('width', '350')
+    videoElement.setAttribute('src', 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')
+    modalContent.append(videoElement)
+
+    // Popup closing button
+    const closeButton = document.createElement('button')
+    closeButton.setAttribute('onclick', 'closeMovieModal()')
+    closeButton.innerHTML = 'X'
+    modalContent.append(closeButton)
+
+    // Creating a new object with the movie details that we want to display
+    const movieDetailsObject = {
+        'title': data.Title,
+        'year': data.Year,
+        'released': data.Released,
+        'runtime': data.Runtime,
+        'genre': data.Genre,
+        'actors': data.Actors,
+        'writer': data.Writer,
+        'plot': data.Plot
+    } 
+
+    // Creating the array of all our movie properties
+    const detailsKeys = Object.keys(movieDetailsObject)
+
+    // Showing the popup with the movie details and its overlay
     const movieModal = document.querySelector('.movie-details-modal')    
     movieModal.classList.add('show')
-    
+    const movieModalOverlay = document.querySelector('.movie-modal-overlay')
+    movieModalOverlay.classList.add('show')
 
     const detailsList = document.createElement('ul')
     detailsList.classList.add('movie-details-list')
 
-    document.querySelector('.modal-content').append(detailsList)
+    // Creating a list item for every movie detail and add it to the popup
+    detailsKeys.forEach(function (detail) {
+        const detailTarget = document.createElement('li')
+        detailTarget.innerHTML = '<strong>' + detail + ':</strong>' + movieDetailsObject[detail]
+        detailsList.append(detailTarget)
+    })
 
-    const title = document.createElement('li')
-    title.innerHTML = '<strong>Title:</strong>' + data.Title
-    detailsList.append(title)
-
-    const year = document.createElement('li')
-    year.innerHTML = '<strong>Year:</strong>' + data.Year
-    detailsList.append(year)
-
-    const released = document.createElement('li')
-    released.innerHTML = '<strong>Released:</strong>' + data.Released
-    detailsList.append(released)
-
-    const runtime = document.createElement('li')
-    runtime.innerHTML = '<strong>Runtime:</strong>' + data.Runtime
-    detailsList.append(runtime)
-
-    const genre = document.createElement('li')
-    genre.innerHTML = '<strong>Genre:</strong>' + data.Genre
-    detailsList.append(genre)
-
-    const actors = document.createElement('li')
-    actors.innerHTML = '<strong>Actors:</strong>' + data.Actors
-    detailsList.append(actors)
-
-    const write = document.createElement('li')
-    write.innerHTML = '<strong>Write:</strong>' + data.Write
-    detailsList.append(write)
-
-    const plot = document.createElement('li')
-    plot.innerHTML = '<strong>Plot:</strong>' + data.Plot
-    detailsList.append(plot)
+    modalContent.append(detailsList)
 }
 
 function closeMovieModal() {
     const movieModal = document.querySelector('.movie-details-modal')
     movieModal.classList.remove('show')
 
-    const movieModalList = document.querySelector('.movie-details-list')
+    const movieModalOverlay = document.querySelector('.movie-modal-overlay')
+    movieModalOverlay.classList.remove('show')
+
+    const movieModalList = document.querySelector('.modal-content')
     movieModalList.remove()
 }
