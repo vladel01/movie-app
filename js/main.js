@@ -2,7 +2,7 @@ const form = document.getElementById('search-form');
 const input = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 
-const apiUrl = 'http://www.omdbapi.com/?apikey=338f9a63'
+const apiUrl = 'http://www.omdbapi.com/?apikey=78a977ba'
 const apiSearchByTitle = '&s='
 
 
